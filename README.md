@@ -6,4 +6,4 @@ This is a Fitness App.
 
 To preview the database diagram, go to the [Db Diagram](https://dbdiagram.io/) and paste in the code from [diagram.txt](diagram.txt).
 
-![Fitness App Entity-Relationship Diagram](image.jpg)
+![Fitness App Entity-Relationship Diagram](fitness-app-erd.png)
