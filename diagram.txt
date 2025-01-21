@@ -1,0 +1,145 @@
+Table USER {
+ userId int [pk, increment]
+ email varchar [unique, not null]
+ password varchar [not null]
+ acceptedTc boolean [not null]
+ isConfirmed boolean [not null]
+ dateCreated datetime [not null]
+ dateUpdated datetime [not null]
+}
+
+
+Table USER_DETAILS {
+ userId int [pk, not null]
+ firstName varchar [not null]
+ lastName varchar [not null]
+ dateOfBirth date
+ gender varchar
+ phone varchar
+}
+
+
+Table USER_RECORDS {
+ userId int [pk, not null]
+ height float
+ weight float
+ dateCreated datetime [not null]
+}
+
+
+Table USER_PREFERENCES {
+ userId int [pk, not null]
+ heightUnitPreference int [not null]
+ weightUnitPreference int [not null]
+ fitnessGoal varchar
+}
+
+
+Table UNITS {
+ unitId int [pk, not null]
+ name varchar [not null]
+ type varchar [not null]
+}
+
+
+Table FITNESS_GOALS {
+fitnessGoalId int [pk, not null]
+name varchar
+}
+
+
+Table EXERCISE {
+ exerciseId int [pk, increment]
+ name varchar [not null]
+ description text
+ strengthIndex float
+ createdBy int
+ type varchar [not null]
+ tags varchar
+ dateCreated datetime [not null]
+ dateUpdated datetime [not null]
+}
+
+
+Table WORKOUT {
+ workoutId int [pk, increment]
+ name varchar [not null]
+ description text
+ createdBy int
+ type varchar [not null]
+ tags varchar
+ dateCreated datetime [not null]
+ dateUpdated datetime [not null]
+ numberOfExercises int
+}
+
+
+Table WORKOUT_EXERCISES {
+ workoutExerciseId int [pk, increment]
+ workoutId int [not null]
+ exerciseId int [not null]
+ order int [not null]
+}
+
+
+Table WORKOUT_SESSIONS {
+ workoutSessionId int [pk, increment]
+ userId int [not null]
+ workoutId int
+ dateCreated datetime [not null]
+ dateUpdated datetime [not null]
+}
+
+
+Table WORKOUT_SESSION_EXERCISES {
+ sessionExerciseId int [pk, increment]
+ workoutSessionId int [not null]
+ exerciseId int [not null]
+ order int [not null]
+ notes text
+}
+
+
+Table WORKOUT_SESSION_EXERCISE_SETS {
+ setId int [pk, increment]
+ sessionExerciseId int [not null]
+ reps int
+ weight float
+ duration int
+}
+
+
+Table EXERCISE_TAGS {
+ exerciseId int [not null]
+ tagId int [not null]
+}
+
+
+Table WORKOUT_TAGS {
+ workoutId int [not null]
+ tagId int [not null]
+}
+
+
+Table TAGS {
+ tagId int [not null]
+ name varchar [not null]
+}
+
+
+Ref: USER_DETAILS.userId > USER.userId
+Ref: USER_RECORDS.userId > USER.userId
+Ref: USER_PREFERENCES.userId > USER.userId
+Ref: USER_PREFERENCES.heightUnitPreference > UNITS.unitId
+Ref: USER_PREFERENCES.weightUnitPreference > UNITS.unitId
+Ref: WORKOUT_EXERCISES.workoutId > WORKOUT.workoutId
+Ref: WORKOUT_EXERCISES.exerciseId > EXERCISE.exerciseId
+Ref: WORKOUT_SESSIONS.userId > USER.userId
+Ref: WORKOUT_SESSIONS.workoutId > WORKOUT.workoutId
+Ref: WORKOUT_SESSION_EXERCISES.workoutSessionId > WORKOUT_SESSIONS.workoutSessionId
+Ref: WORKOUT_SESSION_EXERCISES.exerciseId > EXERCISE.exerciseId
+Ref: WORKOUT_SESSION_EXERCISE_SETS.sessionExerciseId > WORKOUT_SESSION_EXERCISES.sessionExerciseId
+Ref: EXERCISE_TAGS.exerciseId > EXERCISE.exerciseId
+Ref: EXERCISE_TAGS.tagId > TAGS.tagId
+Ref: WORKOUT_TAGS.workoutId > WORKOUT.workoutId
+Ref: WORKOUT_TAGS.tagId > TAGS.tagId
